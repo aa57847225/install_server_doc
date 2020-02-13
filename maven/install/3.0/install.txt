@@ -1,0 +1,10 @@
+下载安装文件 
+wget http://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+解压安装： 
+tar -zxvf apache-maven-3.3.9-bin.tar.gz 
+mv apache-maven-3.3.9 maven
+vi /etc/profile
+   M2_HOME=/opt/tyrone/maven （注意这里是maven的安装路径）
+     export PATH=${M2_HOME}/bin:${PATH}
+	 
+	  source /etc/profile

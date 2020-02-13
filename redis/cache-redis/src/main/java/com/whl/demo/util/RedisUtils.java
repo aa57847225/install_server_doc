@@ -150,4 +150,12 @@ public class RedisUtils {
 	public void hset(String h,Object o,Object hv){
 		 redisTemplate.opsForHash().put(h,o,hv);
 	}
+
+	public long increment(String redisKey,long time){
+		return redisTemplate.opsForValue().increment(redisKey, time);
+	}
+
+	public void expire(String redisKey,long time,TimeUnit timeUnit){
+		redisTemplate.expire(redisKey, 30,timeUnit);
+	}
 }

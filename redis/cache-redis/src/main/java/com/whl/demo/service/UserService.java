@@ -8,11 +8,13 @@ import com.whl.demo.mapper.UserMapper;
 import com.whl.demo.template.CacheLoadable;
 import com.whl.demo.template.CacheTemplate;
 import com.whl.demo.util.RedisUtils;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -83,6 +85,20 @@ public class UserService {
                 return userMapper.findAll();
             }
         });
+    }
+
+    public void telPhoneCount(String smsPhone){
+        String redisKey = "SMS_LIMIT_" + smsPhone;
+        long count = redisUtils.increment(redisKey, 1);
+        if (count == 1) {
+            //设置有效期一分钟
+            redisUtils.expire(redisKey, 30, TimeUnit.SECONDS);
+        }
+        if (count > 1) {
+            System.out.println("每30秒只能发送一次短信");
+            return;
+        }
+        System.out.println("============开始发送短信==============");
     }
 
 }
