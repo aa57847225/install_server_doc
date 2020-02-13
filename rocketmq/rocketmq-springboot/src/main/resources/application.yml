@@ -1,0 +1,19 @@
+#默认使用配置
+spring:
+  profiles:
+    active: dev
+
+#公共配置与profiles选择无关
+mybatis:
+  typeAliasesPackage: com.whl.demo.entity
+  mapperLocations: classpath:mapper/*.xml
+
+rocketmq:
+  # 生产者配置
+  producer:
+    groupName: ${spring.application.name}
+    namesrvAddr: 192.168.0.69:9876
+    default: false
+  consumer:
+      groupName: ${spring.application.name}
+      namesrvAddr: 192.168.0.69:9876
